@@ -1,4 +1,4 @@
-package net.destinyline.mmoProfile.menu;
+package net.destinyline.mmoProfileAddon.menu;
 
 
 import fr.phoenixdevt.mmoprofiles.bukkit.MMOProfiles;
@@ -13,8 +13,8 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import net.destinyline.mmoProfile.MmoProfile;
-import net.destinyline.mmoProfile.manage.InventoryManager;
+import net.destinyline.mmoProfileAddon.MMOProfileAddon;
+import net.destinyline.mmoProfileAddon.manage.InventoryManager;
 import org.jetbrains.annotations.NotNull;
 import fr.phoenixdevt.mmoprofiles.bukkit.gui.objects.item.InventoryItem;
 
@@ -22,9 +22,10 @@ import java.util.List;
 
 public class CustomProfileListViewer extends ProfileListViewer {
 
-    private String removalName;
     private static final NamespacedKey EMPTY_SLOT_KEY;
     private static final NamespacedKey SLOT_NUMBER_KEY;
+
+    private String removalModeTitle = "";
 
     public CustomProfileListViewer() {
         super();
@@ -33,6 +34,12 @@ public class CustomProfileListViewer extends ProfileListViewer {
     static {
         EMPTY_SLOT_KEY = new NamespacedKey(MMOProfiles.plugin, "empty_slot");
         SLOT_NUMBER_KEY = new NamespacedKey(MMOProfiles.plugin, "slot_number");
+    }
+
+    @Override
+    public void reload(ConfigurationSection var1) {
+        super.reload(var1);
+        this.removalModeTitle = var1.getString("removal_name", "Profile Removal");
     }
 
     // loadItem()メソッドをオーバーライドし、"profile"の処理をカスタムクラスに差し替え
@@ -54,7 +61,8 @@ public class CustomProfileListViewer extends ProfileListViewer {
 
         // クリック処理をカスタマイズする例
         @Override
-        public void onClick(ProfileListViewer.Generated gen, @NotNull InventoryClickEvent event) {
+        public void onClick(ProfileListViewer.@NotNull Generated gen, @NotNull InventoryClickEvent event) {
+            if (event.getCurrentItem() == null) return;
             PersistentDataContainer dataContainer = event.getCurrentItem().getItemMeta().getPersistentDataContainer();
 
             if (dataContainer.has(EMPTY_SLOT_KEY)) {
@@ -84,9 +92,7 @@ public class CustomProfileListViewer extends ProfileListViewer {
             } else {
                 String autoProfileName = "Profile n" + (profileUI.getProfileList().getProfiles().size() + 1);
                 profileUI.getProfileList().createProfile(autoProfileName)
-                        .thenAccept(UtilityMethods.sync(MMOProfiles.plugin, createdProfile -> {
-                            profileUI.getProfileList().applyProfile(createdProfile);
-                        }));
+                        .thenAccept(UtilityMethods.sync(MMOProfiles.plugin, createdProfile -> profileUI.getProfileList().applyProfile(createdProfile)));
             }
         }
 
@@ -102,6 +108,10 @@ public class CustomProfileListViewer extends ProfileListViewer {
             return false;
         }
 
+        private boolean isRemovalMode(String invName) {
+            return removalModeTitle.equals(invName);
+        }
+
         /**
          * 空スロット以外の場合の処理
          */
@@ -110,12 +120,11 @@ public class CustomProfileListViewer extends ProfileListViewer {
             if (slotNumber != null) {
                 List<PlayerProfileImpl> profiles = profileUI.getProfileList().getProfiles();
                 PlayerProfileImpl selectedProfile = profiles.get(slotNumber);
-                if ((event.getClick() == ClickType.RIGHT)) {
-                    MmoProfile.getInstance().getService().addDeletionCandidate(profileUI.getPlayer().getUniqueId(), selectedProfile);
+                if ((event.getClick() == ClickType.RIGHT) || isRemovalMode(profileUI.getName())) {
+                    MMOProfileAddon.getInstance().getService().addDeletionCandidate(profileUI.getPlayer().getUniqueId(), selectedProfile);
                     InventoryManager.CONFIRM_DELETION.generate(profileUI, selectedProfile).open();
                 } else if (event.getClick() == ClickType.LEFT) {
                     profileUI.getProfileList().applyProfile(selectedProfile);
-
                 }
             }
         }

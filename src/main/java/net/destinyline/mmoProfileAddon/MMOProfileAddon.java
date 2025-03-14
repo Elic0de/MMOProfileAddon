@@ -1,17 +1,17 @@
-package net.destinyline.mmoProfile;
+package net.destinyline.mmoProfileAddon;
 
 
 import fr.phoenixdevt.mmoprofiles.bukkit.MMOProfiles;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import net.destinyline.mmoProfile.listeners.ProfileInvListener;
-import net.destinyline.mmoProfile.manage.InventoryManager;
-import net.destinyline.mmoProfile.service.ProfileDeletionService;
+import net.destinyline.mmoProfileAddon.listeners.ProfileInvListener;
+import net.destinyline.mmoProfileAddon.manage.InventoryManager;
+import net.destinyline.mmoProfileAddon.service.ProfileDeletionService;
 
-public final class MmoProfile extends JavaPlugin implements Listener {
+public final class MMOProfileAddon extends JavaPlugin implements Listener {
 
-    private static MmoProfile instance;
+    private static MMOProfileAddon instance;
 
     private MMOProfiles profiles;
     private ProfileDeletionService service;
@@ -20,7 +20,6 @@ public final class MmoProfile extends JavaPlugin implements Listener {
     public void onEnable() {
         instance = this;
         service = new ProfileDeletionService();
-
         // register event
         Bukkit.getPluginManager().registerEvents(new ProfileInvListener(), this);
         // load profile instance
@@ -35,7 +34,7 @@ public final class MmoProfile extends JavaPlugin implements Listener {
         }
     }
 
-    public static MmoProfile getInstance() {
+    public static MMOProfileAddon getInstance() {
         return instance;
     }
 

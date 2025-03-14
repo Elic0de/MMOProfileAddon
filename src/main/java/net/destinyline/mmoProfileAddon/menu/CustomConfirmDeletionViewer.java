@@ -1,4 +1,4 @@
-package net.destinyline.mmoProfile.menu;
+package net.destinyline.mmoProfileAddon.menu;
 
 import fr.phoenixdevt.mmoprofiles.bukkit.gui.ConfirmDeletionViewer;
 import fr.phoenixdevt.mmoprofiles.bukkit.gui.objects.item.InventoryItem;
@@ -7,7 +7,7 @@ import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import net.destinyline.mmoProfile.manage.InventoryManager;
+import net.destinyline.mmoProfileAddon.manage.InventoryManager;
 import org.jetbrains.annotations.NotNull;
 
 public class CustomConfirmDeletionViewer extends ConfirmDeletionViewer {

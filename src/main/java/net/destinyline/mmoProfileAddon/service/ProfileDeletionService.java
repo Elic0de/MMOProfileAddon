@@ -1,7 +1,7 @@
-package net.destinyline.mmoProfile.service;
+package net.destinyline.mmoProfileAddon.service;
 
 import fr.phoenixdevt.mmoprofiles.bukkit.profile.PlayerProfileImpl;
-import net.destinyline.mmoProfile.MmoProfile;
+import net.destinyline.mmoProfileAddon.MMOProfileAddon;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +33,7 @@ public class ProfileDeletionService {
     public void deleteProfile(UUID playerUUID) {
         PlayerProfileImpl profile = deletionCandidates.remove(playerUUID);
         if (profile != null) {
-            MmoProfile.getInstance().getProfiles().getPlayerData(playerUUID).removeProfile(profile);
+            MMOProfileAddon.getInstance().getProfiles().getPlayerData(playerUUID).removeProfile(profile);
         }
     }
 }

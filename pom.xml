@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>glim</groupId>
-    <artifactId>mmoprofile</artifactId>
+    <groupId>net.destinyline</groupId>
+    <artifactId>mmoprofile-addon</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -59,12 +59,6 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
-
-        <repository>
-            <id>phoenix</id>
-            <url>https://nexus.phoenixdevt.fr/repository/maven-public/</url>
-        </repository>
-
     </repositories>
 
     <dependencies>
@@ -76,10 +70,17 @@
         </dependency>
         <dependency>
             <groupId>fr.phoenixdevt</groupId>
-            <artifactId>Profile-API</artifactId>
-            <version>1.1</version>
-            <scope>provided</scope>
-            <optional>true</optional>
+            <artifactId>mmoprofiles</artifactId>
+            <version>1.11.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/MMOProfiles-1.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>fr.phoenixdevt</groupId>
+            <artifactId>mythiclib</artifactId>
+            <version>1.7</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/MythicLib-1.7.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

@@ -1,7 +1,7 @@
-package net.destinyline.mmoProfile.util;
+package net.destinyline.mmoProfileAddon.util;
 
 import fr.phoenixdevt.mmoprofiles.bukkit.MMOProfiles;
-import net.destinyline.mmoProfile.MmoProfile;
+import net.destinyline.mmoProfileAddon.MMOProfileAddon;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class Utils {
 
         // ファイルが存在しない場合はデフォルトリソースからコピーする
         if (!targetFile.exists()) {
-            try (InputStream resourceStream = MmoProfile.getInstance().getResource(fileName)) {
+            try (InputStream resourceStream = MMOProfileAddon.getInstance().getResource(fileName)) {
                 if (resourceStream == null) {
                     MMOProfiles.plugin.getLogger().warning("Resource not found: " + fileName);
                     return;

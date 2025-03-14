@@ -1,4 +1,4 @@
-package net.destinyline.mmoProfile.menu;
+package net.destinyline.mmoProfileAddon.menu;
 
 import fr.phoenixdevt.mmoprofiles.bukkit.MMOProfiles;
 import fr.phoenixdevt.mmoprofiles.bukkit.gui.objects.EditableInventory;
@@ -10,7 +10,7 @@ import fr.phoenixdevt.mmoprofiles.bukkit.utils.ProfileUtils;
 import io.lumine.mythic.lib.MythicLib;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import net.destinyline.mmoProfile.MmoProfile;
+import net.destinyline.mmoProfileAddon.MMOProfileAddon;
 import org.jetbrains.annotations.NotNull;
 
 public class AdditionalConfirmDeletionViewer extends EditableInventory {
@@ -37,8 +37,10 @@ public class AdditionalConfirmDeletionViewer extends EditableInventory {
         }
 
         public void onClick(@NotNull Generated var1, @NotNull InventoryClickEvent var2) {
-            MmoProfile.getInstance().getService().deleteProfile(var2.getWhoClicked().getUniqueId());
+            MMOProfileAddon.getInstance().getService().deleteProfile(var2.getWhoClicked().getUniqueId());
             ProfileUtils.castScript(var1.getProfileList().getMMOPlayerData(), MMOProfiles.plugin.configManager.profileDeleteScript);
+            var1.getNaviguator().popOpen();
+            var1.getNaviguator().popOpen();
         }
     }
 

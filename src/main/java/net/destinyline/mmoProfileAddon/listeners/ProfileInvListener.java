@@ -1,10 +1,10 @@
-package net.destinyline.mmoProfile.listeners;
+package net.destinyline.mmoProfileAddon.listeners;
 
 import fr.phoenixdevt.mmoprofiles.bukkit.profile.ProfileListImpl;
 import io.lumine.mythic.lib.api.event.SynchronizedDataLoadEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import net.destinyline.mmoProfile.manage.InventoryManager;
+import net.destinyline.mmoProfileAddon.manage.InventoryManager;
 
 public class ProfileInvListener implements Listener {
 
