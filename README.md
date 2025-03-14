@@ -1,3 +1,6 @@
+# MMOProfileAddon
+MMOProfileのキャラクター削除時に警告を追加
+
 ## 既存の確認画面の設定
 さらに確認画面を表示させる場合は、yesのfunctionを`confirm-yes`に変更してください
 
